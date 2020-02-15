@@ -3,22 +3,27 @@ import pandas as pd
 import librosa
 import os
 
-def extract_features(file_name):
+def extract_mfcc_features(file_name):
+    '''
+    Extracts mfcc features from a selected file for machine learning.
+
+    Extracts 20 features.
+    '''
     audio, sample_rate = librosa.load(file_name, res_type='kaiser_fast') 
     mfccs = librosa.feature.mfcc(y=audio, sr=sample_rate)
     mfccs_processed = np.mean(mfccs.T,axis=0)
     return mfccs_processed
 
-features = []# Iterate through each sound file and extract the features
+features = [] # Iterate through each sound file and extract the features
 directory = "D:/Fakultetlije/semestar_dipl_1/ruap/projekt/RUAP_projekt_dumancic_tufekovic/RUAP_projekt_dumancic_tufekovic/cats_dogs"
 for filename in os.listdir(directory):
     if filename.endswith(".wav"):
         class_label = filename.split("_")[0]
-        data = extract_features(os.path.abspath(directory+"/"+filename))
+        data = extract_mfcc_features(os.path.abspath(directory+"/"+filename)) #bad practice but it solved some errors
         temp = [class_label]
         temp.extend(data)
         features.append(temp)
-        #print(features, "\n")
+        #print(temp, "\n")
 
 for feat in features:
     print(feat)
