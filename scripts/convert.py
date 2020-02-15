@@ -19,7 +19,7 @@ directory = "D:/Fakultetlije/semestar_dipl_1/ruap/projekt/RUAP_projekt_dumancic_
 for filename in os.listdir(directory):
     if filename.endswith(".wav"):
         class_label = filename.split("_")[0]
-        data = extract_mfcc_features(os.path.abspath(directory+"/"+filename)) #bad practice but it solved some errors
+        data = extract_mfcc_features(os.path.abspath(directory+"/"+filename)) #bad practice to use absolute paths but it solved some errors
         temp = [class_label]
         temp.extend(data)
         features.append(temp)

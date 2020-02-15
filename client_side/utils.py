@@ -16,7 +16,7 @@ def extract_mfcc_features(file_name):
 
 def extract_mfcc_features_ds(data, samplerate):
     '''
-    Extracts mfcc features from a selected file for machine learning.
+    Extracts mfcc features from a selected file for machine learning. Uses already established data and samplerate.
 
     Defaults to 20 features.
     '''

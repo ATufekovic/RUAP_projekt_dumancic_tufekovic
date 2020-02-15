@@ -23,7 +23,7 @@ def make_request(sample):
     body = str.encode(json.dumps(data))
 
     url = 'https://ussouthcentral.services.azureml.net/workspaces/a4bc090290d447d689ae2c0fc656e79f/services/d531673c852b422f9ce1a2b091ddc4a4/execute?api-version=2.0&details=true'
-    api_key = 'FyEZrfMADhspKONzdzHke3kaEmRyQygKucVpJ5DrL9+bRZ0lVjNI95Hnw2hnjQL5JckOfp+7Zd3/f/38k0pxlg==' # Replace this with the API key for the web service
+    api_key = 'yeet' # Replace this with the API key for the web service
     headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
 
     req = urllib.request.Request(url, body, headers)
@@ -36,7 +36,8 @@ def make_request(sample):
         # response = urllib.request.urlopen(req)
 
         result = response.read()
-        print(result) 
+        print(result)
+        return result 
     except urllib.error.HTTPError as error:
         print("The request failed with status code: " + str(error.code))
 
@@ -44,4 +45,4 @@ def make_request(sample):
         print(error.info())
 
         print(json.loads(error.read()))
-
+        return json.loads(error.read())
