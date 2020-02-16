@@ -1,4 +1,4 @@
-import os, sys, io
+import sys, io
 import urllib3
 import urllib
 from urllib.parse import urlparse
@@ -14,10 +14,35 @@ import atlastk as Atlas
 head = """
 <title>"Cat and dog .wav classifier" example</title>
 <link rel="shortcut icon" href="https://i.imgur.com/aecc2b2.png"/>
+<style>
+    body {
+        background-image: url('https://i.imgur.com/5acxsPz.png');
+        display: block;
+        
+        margin: 100px auto auto auto;
+    }
+    fieldset {
+        background-color: white;
+        margin: auto 20% auto 20%;
+        padding: auto 10% auto 10%;
+        display: block;
+    }
+    p{
+        text-align: center;
+    }
+    input{
+        margin: auto;
+        width:100%;
+    }
+    button{
+        width:300px;
+        height:25px;
+    }
+</style>
 """
 
 body = """
-<div style="display: table; margin: 100px auto auto auto;">
+<div style="">
  <fieldset>
   <p>Type in a valid file URL site:</p>
   <input id="input" placeholder="Enter a valid url here" type="text" data-xdh-onevent="Submit"/>
@@ -38,24 +63,29 @@ def fetch_file(file_url):
     '''
     print(file_url)
     if(urlparse(file_url)[0]!=None):#urlparse to see if it really is a valid url
-        if(str(file_url).find("http://") == -1):#check to see if it contains the http:// part of the link
+        if(str(file_url).find("http") == -1):#check to see if it contains the http:// part of the link
             temp_url = "http://"+file_url
         else:
             temp_url = file_url
         try:
             data, samplerate = sf.read(io.BytesIO(urllib.request.urlopen(temp_url).read()))
+            print("Sample rate:", samplerate)
             features = utils.extract_mfcc_features_ds(data, samplerate)
             sample = utils.prepare_sample(features)
             #print(sample)
             result = azure_ml_prediction.make_request(sample)
             if(result.rfind(b'dog') != -1):
+                print("dog")
                 return "dog"
             elif(result.rfind(b'cat') != -1):
+                print('cat')
                 return "cat"
             else:
+                print("failed due to bad predict")
                 return "failed..."
         except:
-            return "failed..."
+            print("failed due to bad process")
+            return "unsupported sound or .wav format :("
         
 def acConnect(dom):
     dom.setLayout("", body )
