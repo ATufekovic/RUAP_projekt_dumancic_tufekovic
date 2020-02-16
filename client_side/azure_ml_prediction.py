@@ -22,8 +22,8 @@ def make_request(sample):
 
     body = str.encode(json.dumps(data))
 
-    url = 'https://ussouthcentral.services.azureml.net/workspaces/a4bc090290d447d689ae2c0fc656e79f/services/d531673c852b422f9ce1a2b091ddc4a4/execute?api-version=2.0&details=true'
-    api_key = 'yeet' # Replace this with the API key for the web service
+    url = 'https://ussouthcentral.services.azureml.net/workspaces/a4bc090290d447d689ae2c0fc656e79f/services/4abdd29272c5431c9b4549b5db12bb1f/execute?api-version=2.0&details=true'
+    api_key = 'DSapCRRzKYlUqdeqr3oqN/iHpTV0Xom+KVDRmgVrk8XWd3SlCE767DyaneDNYstQ3XZ43BkRCc4G+Z2Ba8vwwg==' # Replace this with the API key for the web service
     headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
 
     req = urllib.request.Request(url, body, headers)
